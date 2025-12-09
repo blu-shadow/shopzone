@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShopZone — Refined E‑Commerce Prototype</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--brand:#e11d66;--brand-600:#d0266a}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background:linear-gradient(180deg,#f8fafc 0%, #f0fff4 100%);}    
+    .glass{backdrop-filter: blur(6px); background: rgba(255,255,255,0.6);}    
+    .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .product-img{min-height:200px;max-height:260px;object-fit:cover}
+    .drawer-enter{transform:translateX(110%)}
+    .drawer-open{transform:translateX(0);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="sticky top-0 z-50 shadow-sm glass">
+    <nav class="container mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a id="logo-btn" class="flex items-center gap-2" href="#">
+          <svg class="h-9 w-9 text-[var(--brand)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7.5h18M6 7.5v9a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="font-bold text-lg text-gray-800">ShopZone</span>
+        </a>
+        <button id="mobile-search-open" class="md:hidden p-2 rounded-full hover:bg-gray-100" aria-label="Open search">
+          🔍
+        </button>
+      </div>
+
+      <div class="hidden md:flex flex-1 justify-center px-6">
+        <div class="w-full max-w-xl relative">
+          <input id="main-search" type="search" placeholder="Search products, categories or brands..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand)]" aria-label="Search products"/>
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.35-4.35M10.5 18A7.5 7.5 0 1 1 18 10.5 7.508 7.508 0 0 1 10.5 18z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle" class="hidden sm:inline-flex items-center gap-2 text-sm px-3 py-1 rounded-full hover:bg-gray-100" aria-pressed="false">Theme</button>
+        <button id="cart-toggle" class="relative flex items-center gap-2 px-3 py-1 rounded-full hover:bg-gray-100" aria-label="Open cart" aria-controls="cart-drawer" aria-expanded="false">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none"><path d="M3 3h2l.4 2M7 13h10l3-7H6.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="text-sm hidden md:inline">Cart</span>
+          <span id="cart-count" class="absolute -right-1 -top-1 bg-[var(--brand)] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+        </button>
+        <a href="#login-page" class="hidden md:inline-flex items-center px-3 py-1 rounded-full hover:bg-gray-100">Sign In</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container mx-auto max-w-7xl px-4 py-8"> 
+    <!-- Hero -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-8">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 leading-tight">Big Fashion Sale — Up to <span class="text-[var(--brand)]">70% OFF</span></h1>
+        <p class="mt-3 text-gray-600 max-w-xl">Curated picks for you. Fast delivery across Bangladesh. Quality guaranteed — prototype showroom.</p>
+        <div class="mt-6 flex gap-3">
+          <a href="#products" class="inline-flex items-center bg-[var(--brand)] hover:bg-[var(--brand-600)] text-white font-semibold px-5 py-3 rounded-lg shadow">Shop Now</a>
+          <button id="view-offers" class="inline-flex items-center border px-4 py-3 rounded-lg hover:bg-gray-50">Today's Offers</button>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-2 max-w-sm">
+          <div class="bg-white p-3 rounded-lg shadow-sm text-center">
+            <div class="text-2xl font-bold">Free</div>
+            <div class="text-xs text-gray-500">Delivery over ৳2000</div>
+          </div>
+          <div class="bg-white p-3 rounded-lg shadow-sm text-center">
+            <div class="text-2xl font-bold">7d</div>
+            <div class="text-xs text-gray-500">Easy returns</div>
+          </div>
+          <div class="bg-white p-3 rounded-lg shadow-sm text-center">
+            <div class="text-2xl font-bold">24/7</div>
+            <div class="text-xs text-gray-500">Support</div>
+          </div>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center justify-center">
+        <img src="https://placehold.co/520x380/fecdd3/db2777?text=Fashion+Hero" alt="Hero" class="rounded-xl shadow-xl object-cover w-full"/>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-gray-800">Featured Products</h2>
+        <div class="text-sm text-gray-500">Showing <span id="products-count">0</span> items</div>
+      </div>
+
+      <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+    </section>
+
+    <!-- Checkout area (placeholder) -->
+    <section id="mini-checkout" class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow">
+        <h3 class="font-semibold mb-3">Shipping address</h3>
+        <form id="shipping-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input required name="fullName" placeholder="Full name" class="p-3 border rounded" />
+          <input required name="phone" placeholder="Phone (e.g. 01XXXXXXXXX)" class="p-3 border rounded" />
+          <input required name="address" placeholder="Address" class="p-3 border rounded md:col-span-2" />
+          <input required name="city" placeholder="City" class="p-3 border rounded" />
+          <input name="post" placeholder="Postal code" class="p-3 border rounded" />
+        </form>
+      </div>
+      <aside class="bg-white p-6 rounded-lg shadow space-y-4">
+        <h4 class="font-semibold">Order Summary</h4>
+        <div id="summary-list" class="text-sm text-gray-700"></div>
+        <div class="flex justify-between font-bold text-gray-800"><span>Total</span><span id="summary-total">৳0</span></div>
+        <button id="checkout-btn" class="w-full bg-[var(--brand)] text-white py-3 rounded-lg">Proceed to Checkout</button>
+      </aside>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-12 bg-gray-900 text-gray-200">
+    <div class="container mx-auto max-w-7xl px-4 py-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div>
+        <h3 class="font-bold text-white">ShopZone</h3>
+        <p class="text-sm text-gray-400 mt-2">Prototype e‑commerce UI — built for learning and quick demos.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white">Customer Service</h4>
+        <ul class="mt-2 text-sm text-gray-400 space-y-1">
+          <li>Help Center</li>
+          <li>Returns</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white">Follow</h4>
+        <div class="mt-2 text-sm text-gray-400">Twitter • Facebook • Instagram</div>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 py-4 text-center text-xs text-gray-500">&copy; 2025 ShopZone — Prototype</div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <aside id="cart-drawer" class="fixed right-0 top-0 h-full w-full sm:w-[420px] bg-white shadow-2xl transform drawer-enter" aria-hidden="true">
+    <div class="p-6 h-full flex flex-col">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold">Your Cart</h3>
+        <button id="close-cart" aria-label="Close cart">✕</button>
+      </div>
+      <div id="cart-list" class="mt-4 flex-1 overflow-auto"></div>
+      <div class="mt-4">
+        <div class="flex justify-between font-medium"><span>Subtotal</span><span id="cart-subtotal">৳0</span></div>
+        <button id="cart-checkout" class="mt-3 w-full bg-[var(--brand)] text-white py-3 rounded">Checkout</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- PRODUCT MODAL -->
+  <div id="product-modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="bg-white rounded-lg shadow-xl max-w-3xl w-full overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <img id="modal-img" src="" class="w-full h-80 object-cover" alt=""/>
+        <div class="p-6">
+          <h3 id="modal-title" class="text-2xl font-bold"></h3>
+          <p id="modal-price" class="text-[var(--brand)] font-bold text-2xl mt-2"></p>
+          <p id="modal-desc" class="mt-4 text-gray-600"></p>
+          <div class="mt-6 flex gap-3">
+            <button id="modal-add" class="bg-[var(--brand)] text-white px-4 py-2 rounded">Add to cart</button>
+            <button id="modal-close" class="border px-4 py-2 rounded">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Frontend points to /api/* — the Express backend (server/) will serve these during local development on port 4000.
+  </script>
+</body>
+</html>
